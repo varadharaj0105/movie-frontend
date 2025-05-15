@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Profile</title>
+  <link rel="stylesheet" href="profile.css" />
+  
+</head>
+<body>
+  <!-- Alert box -->
+  <div id="alert" class="alert"></div>
+
+  <!-- Logout Button -->
+
+  <div class="container">
+    <div class="profile-card">
+      <div class="profile-left">
+        <img id="profileImagePreview" src="" alt="Profile Image" />
+        <h2 id="fullNameDisplay">Full Name</h2>
+        <p id="bioDisplay">Bio goes here</p>
+      </div>
+      <div class="profile-right">
+        <h3>Profile Details</h3>
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Favorite Genre:</strong> <span id="favoriteGenreDisplay"></span></p>
+        <p><strong>Location:</strong> <span id="locationDisplay"></span></p>
+        <p><strong>Birthdate:</strong> <span id="birthdateDisplay"></span></p>
+      </div>
+    </div>
+
+    <div id="loading-message" style="display: none;">Loading profile...</div>
+
+    <h2>Edit Profile</h2>
+    <form id="profile-form" enctype="multipart/form-data">
+      <div class="form-group"><label for="displayName">Display Name:</label><input type="text" id="displayName" name="displayName" /></div>
+      <div class="form-group"><label for="fullName">Full Name:</label><input type="text" id="fullName" name="fullName" /></div>
+      <div class="form-group"><label for="bio">Bio:</label><textarea id="bio" name="bio" rows="3"></textarea></div>
+      <div class="form-group"><label for="favoriteGenre">Favorite Genre:</label><input type="text" id="favoriteGenre" name="favoriteGenre" /></div>
+      <div class="form-group"><label for="profileImage">Profile Image:</label><input type="file" id="profileImage" name="profileImage" accept="image/*" /></div>
+      <div class="form-group"><label for="location">Location:</label><input type="text" id="location" name="location" /></div>
+      <div class="form-group"><label for="birthdate">Birthdate:</label><input type="date" id="birthdate" name="birthdate" /></div>
+      <button type="submit">Update Profile</button>
+    </form>
+  </div><br>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+
+  <script>
+    const API_BASE = 'https://movie-backend-1g7r.onrender.com'; // Change to your hosted URL when needed
+
+    function showAlert(message, type = 'info', duration = 3000) {
+      const alertBox = document.getElementById('alert');
+      alertBox.textContent = message;
+      alertBox.className = 'alert alert-' + type;
+      alertBox.style.display = 'block';
+
+      setTimeout(() => {
+        alertBox.style.display = 'none';
+      }, duration);
+    }
+
+    function logout() {
+      localStorage.removeItem('authToken');
+      window.location.href = 'index.html';
+    }
+
+    async function fetchUserProfile() {
+      const token = localStorage.getItem('authToken');
+      const loadingMessage = document.getElementById('loading-message');
+      loadingMessage.style.display = 'block';
+
+      if (!token) {
+        showAlert("Please log in first.", "danger");
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/profile`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        loadingMessage.style.display = 'none';
+
+        if (response.ok) {
+          document.getElementById('displayName').value = data.username || '';
+          document.getElementById('fullName').value = data.fullName || '';
+          document.getElementById('bio').value = data.bio || '';
+          document.getElementById('favoriteGenre').value = data.favoriteGenre || '';
+          document.getElementById('location').value = data.location || '';
+          document.getElementById('birthdate').value = data.birthdate ? data.birthdate.split('T')[0] : '';
+
+          document.getElementById('username').textContent = data.username || '';
+          document.getElementById('email').textContent = data.email || '';
+          document.getElementById('fullNameDisplay').textContent = data.fullName || '';
+          document.getElementById('bioDisplay').textContent = data.bio || '';
+          document.getElementById('favoriteGenreDisplay').textContent = data.favoriteGenre || '';
+          document.getElementById('locationDisplay').textContent = data.location || '';
+          document.getElementById('birthdateDisplay').textContent = data.birthdate ? data.birthdate.split('T')[0] : '';
+
+          const profileImg = document.getElementById('profileImagePreview');
+          profileImg.src = data.profileImage || '';
+        } else {
+          showAlert(data.error || 'Failed to load profile', 'danger');
+        }
+      } catch (error) {
+        loadingMessage.style.display = 'none';
+        console.error('Error fetching profile:', error);
+        showAlert('Error fetching profile', 'danger');
+      }
+    }
+
+    async function updateUserProfile(event) {
+      event.preventDefault();
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        showAlert("Not authenticated", 'danger');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('displayName', document.getElementById('displayName').value);
+      formData.append('fullName', document.getElementById('fullName').value);
+      formData.append('bio', document.getElementById('bio').value);
+      formData.append('favoriteGenre', document.getElementById('favoriteGenre').value);
+      formData.append('location', document.getElementById('location').value);
+      formData.append('birthdate', document.getElementById('birthdate').value || '');
+
+      const fileInput = document.getElementById('profileImage');
+      if (fileInput.files[0]) {
+        formData.append('profileImage', fileInput.files[0]);
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/profile`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          showAlert(data.message || 'Profile updated successfully', 'success');
+          fetchUserProfile();
+          document.getElementById('profileImage').value = '';
+        } else {
+          showAlert(data.error || 'Failed to update profile', 'danger');
+        }
+      } catch (error) {
+        console.error('Error updating profile:', error);
+        showAlert('Error updating profile', 'danger');
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchUserProfile();
+      document.getElementById("profile-form").addEventListener("submit", updateUserProfile);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,669 @@
+/* Base reset and global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Smooth scrolling for anchor links if any are added later */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, professional font */
+  background-color: #12082B; /* Slightly deeper, richer dark purple */
+  color: #EAEAEA; /* Softer white for text */
+  padding: 20px;
+  line-height: 1.7; /* Improved readability */
+  -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit browsers */
+  -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+}
+
+/* Main container for the entire movie details page */
+.movie-details-container {
+  max-width: 1100px; /* Slightly wider for a more spacious feel */
+  margin: 40px auto;
+  background: linear-gradient(145deg, #502779, #D43F6C); /* Adjusted gradient, inspired by profile */
+  border-radius: 24px; /* Softer, larger border radius */
+  padding: 30px 35px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.05) inset; /* More sophisticated shadow and subtle inner highlight */
+}
+
+/* Enhanced Loading Spinner Style */
+#loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  color: #FDD835;
+  font-size: 1.5em;
+}
+
+#loading-spinner::before {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+  border: 5px solid rgba(253, 216, 53, 0.3);
+  border-top-color: #FDD835; /* Yellow accent */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header section: Poster and movie info */
+.movie-header {
+  display: flex;
+  gap: 35px;
+  margin-bottom: 40px;
+  background-color: rgba(10, 5, 20, 0.7); /* Darker, more integrated background */
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  align-items: flex-start; /* Align items to the top */
+}
+
+.movie-poster img {
+  width: 300px; /* Optimal size for detail pages */
+  height: auto;
+  aspect-ratio: 2/3; /* Common movie poster aspect ratio */
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid #E91E63; /* Vibrant pink accent */
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease; /* Smoother transition */
+}
+.movie-poster img:hover {
+  transform: scale(1.04) rotate(-1deg); /* Subtle hover effect */
+  box-shadow: 0 12px 35px rgba(233, 30, 99, 0.4);
+}
+
+.movie-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-info h1 {
+  color: #FCE57F; /* Softer, more premium yellow */
+  margin-bottom: 15px;
+  font-size: 2.6em; /* Adjusted for balance */
+  font-weight: 700;
+  line-height: 1.25;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Enhanced Rating Section Styles */
+#rating-section {
+  background-color: rgba(40, 30, 60, 0.85); /* Slightly different background to stand out */
+  padding: 25px 30px;
+  border-radius: 16px;
+  margin-bottom: 35px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.05); /* Subtle inset highlight */
+  text-align: center; /* Center align content within the rating section */
+}
+
+#rating-section h3 {
+  color: #FCE57F; /* Brighter yellow for the heading */
+  margin-bottom: 25px;
+  font-size: 1.8em; /* Slightly larger heading */
+  border-bottom-color: rgba(252, 229, 127, 0.4); /* Match heading color */
+}
+
+#user-rating-input-area {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column; /* Stack input and button vertically on small screens by default */
+  align-items: center; /* Center items horizontally when in column mode */
+  gap: 15px;
+}
+
+#ratingScore {
+  width: 100%; /* Default width, will be overridden by specific media query styles */
+  max-width: 220px; /* Control max width */
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: rgba(10, 5, 20, 0.6);
+  border: 1px solid rgba(95, 44, 130, 0.7);
+  color: #EAEAEA;
+  font-size: 1.1em;
+  text-align: center; /* Center text in input */
+  transition: all 0.3s ease;
+  margin-bottom: 18px; /* Default margin from generic input styles, will be overridden */
+}
+
+#ratingScore:focus {
+  border-color: #FCE57F; /* Yellow border on focus */
+  box-shadow: 0 0 0 3px rgba(252, 229, 127, 0.3);
+}
+
+/* Style for the button within the rating section */
+#rating-section #submit-rating-button {
+  padding: 12px 30px;
+  background-image: linear-gradient(145deg, #FCE57F, #FFB300); /* Bright yellow/orange gradient */
+  color: #12082B; /* Dark text for contrast on light button */
+  font-size: 1.1em;
+  font-weight: 700; /* Bolder */
+  border: none; /* Ensure no border from generic button styles if not desired */
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-shadow: 0 5px 15px rgba(255, 179, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  margin-top: 10px; /* Default margin from generic button styles, will be overridden */
+  margin-right: 12px; /* Default margin from generic button styles, will be overridden */
+}
+
+#rating-section #submit-rating-button:hover {
+  background-image: linear-gradient(145deg, #FFB300, #FFA000);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(255, 179, 0, 0.4);
+}
+#rating-section #submit-rating-button:disabled {
+  background-image: none;
+  background-color: #555;
+  color: #999;
+  box-shadow: none;
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* Rating Display Area (where "Your rating: X/10" or stars might show) */
+#rating-display-section {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(10, 5, 20, 0.4); /* Darker, subtle background */
+  border-radius: 10px;
+  min-height: 40px; /* Ensure it has some height even when empty */
+}
+
+#rating-display-section h4 {
+  color: #EAEAEA;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 0; /* Reset margin if it's the only content */
+}
+
+/* Example for star display (if you implement visual stars) */
+#stars-container { /* Assuming you might add a div with this ID inside rating-display-section */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.star {
+  font-size: 2em; /* Make stars larger */
+  color: rgba(255, 255, 255, 0.3); /* Default empty star color */
+  transition: color 0.2s ease;
+}
+
+.star-filled {
+  color: #FCE57F; /* Bright yellow for filled stars */
+}
+.star-half { /* You'd need a half-star icon or more complex CSS for this */
+  position: relative;
+  color: #FCE57F;
+}
+.star-half::before {
+    content: '★'; /* Or your star character/icon */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+    color: #FCE57F; /* Color of the filled part */
+}
+
+/* Responsive adjustments for the rating input area */
+@media (min-width: 500px) {
+  #user-rating-input-area {
+    flex-direction: row;    /* Input and button side-by-side on larger screens */
+    justify-content: center; /* Center the group horizontally */
+    align-items: center;     /* Vertically align items in the middle of the row */
+    gap: 20px;               /* Space between input and button */
+  }
+
+  #ratingScore {
+    width: auto;        /* Override global width: 100% from input[type="number"] */
+    flex-grow: 1;       /* Allow input to take available space */
+    flex-shrink: 1;     /* Allow input to shrink if needed */
+    /* max-width: 220px; is already set globally and will be respected */
+    margin-bottom: 0;   /* Remove bottom margin from global input style */
+  }
+
+  #rating-section #submit-rating-button {
+    flex-grow: 0;       /* Button does not grow */
+    flex-shrink: 0;     /* Button does not shrink */
+    margin-top: 0;      /* Remove top margin from global button style */
+    margin-right: 0;    /* Remove right margin, gap handles spacing */
+    /* width: auto; is default for button and appropriate here */
+  }
+}
+
+.movie-info p {
+  margin-bottom: 12px;
+  color: #D0D0D0;
+  font-size: 1em;
+}
+
+.movie-info p strong {
+  color: #F48FB1; /* Softer pink for labels */
+  font-weight: 600; /* Slightly bolder */
+  margin-right: 8px;
+}
+
+/* General Button Styling (applied to #submit-rating-button unless overridden) */
+button,
+.alert-btn {
+  padding: 12px 25px;
+  background-image: linear-gradient(145deg, #E91E63, #C2185B);
+  color: white;
+  font-size: 1.05em;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  margin-top: 10px; /* Default top margin */
+  margin-right: 12px; /* Default right margin */
+  box-shadow: 0 5px 15px rgba(194, 24, 91, 0.3), 0 1px 3px rgba(0,0,0,0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+button:hover,
+.alert-btn:hover {
+  background-image: linear-gradient(145deg, #C2185B, #AD1457);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(194, 24, 91, 0.4), 0 2px 5px rgba(0,0,0,0.3);
+}
+button:active,
+.alert-btn:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 3px 10px rgba(194, 24, 91, 0.3), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+button:disabled,
+.alert-btn:disabled {
+  background-image: none;
+  background-color: #4A4A4A; /* General disabled style */
+  color: #888;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* Styling for various sections */
+.movie-cast,
+.trailer,
+.watch-section,
+#comments-section,
+/* #rating-section, combined specific styles above */
+#rating-display-section {
+  background-color: rgba(25, 15, 45, 0.6);
+  padding: 30px;
+  border-radius: 18px;
+  margin-bottom: 35px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.03);
+}
+
+h3 { /* Section titles */
+  color: #F48FB1;
+  margin-bottom: 25px;
+  font-size: 1.9em;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(95, 44, 130, 0.5);
+  padding-bottom: 12px;
+  letter-spacing: 0.3px;
+}
+
+h4 { /* Sub-headings like "Leave a Comment" */
+  color: #FFCA28;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+  font-weight: 600;
+}
+
+/* Cast List Styling */
+.cast-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 25px;
+}
+
+.actor {
+  text-align: center;
+  background-color: rgba(40, 30, 60, 0.7);
+  padding: 15px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.actor:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.actor img {
+  width: 120px;
+  height: 180px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border: 2px solid rgba(95, 44, 130, 0.7);
+  transition: border-color 0.3s ease;
+}
+.actor:hover img {
+    border-color: #F48FB1;
+}
+
+.actor p {
+  font-size: 0.95em;
+  color: #C8C8C8;
+  line-height: 1.4;
+}
+
+.actor p strong { /* Character name */
+  color: #FDD835;
+  display: block;
+  font-size: 1em;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Trailer Section Link */
+.trailer a {
+  color: #E91E63;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.15em;
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #E91E63;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.trailer a:hover {
+  background-color: #E91E63;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Watch Providers Section */
+.watch-providers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.provider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(40, 30, 60, 0.7);
+  padding: 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #D0D0D0;
+  width: 100px;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.provider:hover {
+  background-color: rgba(55, 40, 75, 0.9);
+  transform: translateY(-4px);
+}
+
+.provider img {
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+.provider p {
+    font-size: 0.85em;
+    line-height: 1.2;
+}
+
+/* Comments Section Styling */
+#comments-list .comment {
+  background-color: rgba(40, 30, 60, 0.7);
+  padding: 18px 20px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  border-left: 5px solid #E91E63;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+#comments-list .comment p:first-of-type {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+#comments-list .comment p strong {
+  color: #FFCA28;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+#comments-list .comment small {
+  font-size: 0.85em;
+  color: #A0A0A0;
+  display: block;
+  margin-top: 8px;
+}
+#comments-list .comment button {
+  padding: 7px 12px;
+  font-size: 0.85em;
+  margin-top: 10px;
+  margin-right: 0;
+  background-image: none;
+  background-color: #616161;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  text-transform: none;
+  letter-spacing: 0;
+}
+#comments-list .comment button:hover {
+  background-color: #D32F2F;
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+}
+
+/* Form Elements (Textarea, Input) */
+textarea,
+input[type="number"], /* This rule applies to #ratingScore */
+input[type="text"] {
+  width: 100%; /* Global style for inputs */
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: rgba(10, 5, 20, 0.5);
+  border: 1px solid rgba(95, 44, 130, 0.6);
+  color: #EAEAEA;
+  margin-bottom: 18px; /* Global bottom margin for inputs */
+  font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 1em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+textarea:focus,
+input[type="number"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: #E91E63;
+  background-color: rgba(10, 5, 20, 0.7);
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.3);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Custom Alert Styles */
+.alert {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  z-index: 10000;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: white;
+  min-width: 320px;
+  max-width: 90%;
+  text-align: center;
+  border-left-width: 6px;
+  border-left-style: solid;
+  animation: fadeInDown 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.alert-info { background-color: #502779; border-left-color: #3A1C5A; }
+.alert-warning { background-color: #FFA000; color: #111; border-left-color: #C67C00;}
+.alert-danger { background-color: #D32F2F; border-left-color: #B71C1C;}
+.alert-success { background-color: #388E3C; border-left-color: #2E7D32;}
+
+.alert-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.alert-actions .alert-btn {
+  background-image: none;
+  background-color: rgba(255,255,255,0.1);
+  padding: 8px 18px;
+  font-size: 0.9em;
+  box-shadow: none;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.alert-actions .alert-btn:hover {
+  background-color: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 992px) { /* Tablet and larger mobile */
+  .movie-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .movie-poster img {
+    width: 250px;
+    margin-bottom: 25px;
+  }
+  .movie-info h1 {
+    font-size: 2.3em;
+  }
+  .cast-list {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 768px) { /* Smaller tablets and mobile */
+  body {
+    padding: 15px;
+  }
+  .movie-details-container {
+    margin: 20px auto;
+    padding: 20px 25px;
+  }
+  .movie-info h1 {
+    font-size: 2em;
+  }
+  .rating-value { 
+    font-size: 1.8em;
+  }
+  .provider {
+    width: calc(33.33% - 14px); 
+  }
+  button, .alert-btn {
+    padding: 12px 20px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) { /* Small mobile devices */
+  .movie-details-container {
+    padding: 15px 20px;
+    border-radius: 18px;
+  }
+  .movie-poster img {
+    width: 100%;
+    max-width: 200px;
+  }
+  .movie-info h1 {
+    font-size: 1.8em;
+  }
+  h3 { font-size: 1.6em; }
+  h4 { font-size: 1.2em; }
+
+  
+  #ratingScore {
+     width: 100%; /* Explicitly full width on small screens if not already */
+     max-width: 220px; /* Keep max-width constraint */
+  }
+  #rating-section #submit-rating-button {
+     width: 100%; /* Make button full width on small screens */
+     max-width: 220px; /* Match input max-width for consistency if desired */
+     margin-top: 10px; /* Ensure some space if stacked */
+     margin-right: 0; /* No right margin if full width */
+  }
+
+
+  .cast-list {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+  }
+  .actor img {
+    width: 90px;
+    height: 135px;
+  }
+  .provider {
+    width: calc(50% - 10px); 
+  }
+  
+  .alert {
+    width: 90%;
+    min-width: unset;
+    font-size: 1em;
+    padding: 15px 20px;
+  }
+  #comments-list .comment button {
+    width: auto; 
+  }
+}

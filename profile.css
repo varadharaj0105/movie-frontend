@@ -1,0 +1,252 @@
+/* Base reset and layout */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* Updated font stack: Prioritizes Inter, then system fonts, then generic sans-serif */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #1b1034;
+  color: white;
+  padding: 40px 20px;
+  -webkit-font-smoothing: antialiased; /* Improves font rendering on WebKit browsers */
+  -moz-osx-font-smoothing: grayscale;  /* Improves font rendering on Firefox */
+}
+
+/* Container */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  background: linear-gradient(to right, #ff416c, #5f2c82);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Profile Card Layout */
+.profile-card {
+  display: flex;
+  justify-content: space-between;
+  background-color: #111;
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 40px;
+  gap: 30px;
+}
+
+/* Left: Image & Name */
+.profile-left {
+  text-align: center;
+  flex: 1;
+}
+
+.profile-left img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid #f06292;
+  object-fit: contain;  /* Ensure the entire image is displayed */
+  margin-bottom: 15px;
+  max-width: 100%;  /* Make it responsive */
+}
+
+
+.profile-left h2 {
+  color: #fdd835;
+  margin-bottom: 10px;
+  font-weight: 600; /* Added for better heading appearance */
+}
+
+.profile-left p {
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* Right: Info */
+.profile-right {
+  flex: 2;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.profile-right h3 {
+  color: #f48fb1;
+  margin-bottom: 20px;
+  font-weight: 600; /* Added for better heading appearance */
+}
+
+.profile-right p {
+  margin-bottom: 10px;
+  color: #ddd;
+  font-size: 14px;
+  line-height: 1.5; /* Added for better readability */
+}
+
+.profile-right p strong {
+ font-weight: 500; /* Slightly bolder for emphasis */
+ color: #e0e0e0;
+}
+
+/* Form Styles */
+form {
+  background-color: #1e1e1e;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffca28;
+  font-weight: 500; /* Adjusted from bold to 500 */
+}
+
+input[type="text"],
+input[type="date"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 12px 15px; /* Increased padding for better touch targets and visual */
+  border-radius: 10px;
+  background: #333;
+  border: 1px solid #444; /* Added a subtle border */
+  color: #fff;
+  font-family: inherit; /* Ensure form elements inherit the body font */
+  font-size: 1rem; /* Consistent font size for inputs */
+}
+
+input[type="file"] {
+  padding: 8px; /* Specific padding for file input */
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px; /* Minimum height for textarea */
+}
+
+button {
+  width: 100%;
+  padding: 12px 15px; /* Consistent padding */
+  background-color: #f06292;
+  color: white;
+  font-size: 16px;
+  font-weight: 600; /* Bolder button text */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform transition */
+  font-family: inherit; /* Ensure button inherits the body font */
+}
+
+button:hover {
+  background-color: #e91e63;
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+button:active {
+  transform: translateY(0px); /* Press down effect */
+}
+
+/* Loading Message */
+#loading-message {
+  text-align: center;
+  font-size: 16px;
+  color: #ffeb3b;
+  margin-bottom: 20px;
+}
+
+/* Titles */
+h1 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+h2 {
+ text-align: center;
+ color: #fdd835; /* Consistent with profile-left h2 */
+ margin-top: 30px; /* Added margin top for spacing */
+ margin-bottom: 20px;
+ font-size: 1.8rem;
+ font-weight: 600;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 10px; /* Adjust padding for smaller screens */
+  }
+  .container {
+    padding: 20px;
+  }
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    gap: 20px;
+  }
+  .profile-left img {
+    width: 120px; /* Slightly smaller image on mobile */
+    height: 120px;
+  }
+  .profile-right {
+    padding: 15px;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  input[type="text"],
+  input[type="date"],
+  input[type="file"],
+  textarea,
+  button {
+    font-size: 0.95rem; /* Adjust font size in forms for mobile */
+  }
+}
+.alert {
+      display: none;
+      padding: 15px;
+      border-left: 6px solid;
+      margin: 15px auto;
+      width: 80%;
+      border-radius: 4px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .alert-info { background-color: #502779; border-left-color: #3A1C5A; color: white; }
+    .alert-success { background-color: #388E3C; border-left-color: #2E7D32; color: white; }
+    .alert-warning { background-color: #FFA000; border-left-color: #C67C00; color: #111; }
+    .alert-danger { background-color: #D32F2F; border-left-color: #B71C1C; color: white; }
+
+    .logout-btn {
+      width: 100%;
+  padding: 12px 15px; /* Consistent padding */
+  background-color:aqua;  
+  color: white;
+  font-size: 16px;
+  font-weight: 600; /* Bolder button text */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform transition */
+  font-family: inherit;
+    }
+
+    .logout-btn:hover {
+  background-color:#e91e63;
+  transform: translateY(-2px);     }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login or Signup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card card-animated">
+    <div id="mainContent" class="content-hidden">
+      <h2 class="welcome-text-animated">Welcome to MovieVerse</h2>
+      <p>Already have an account?</p>
+      <div class="button-container buttons-animated">
+        <button class="toggle-btn" onclick="window.location.href='login.html'">Yes, Login</button>
+        <button class="toggle-btn" onclick="window.location.href='signup.html'">No, Signup</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Wait for the entire HTML document to be fully loaded and parsed.
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get the card element that has the main animation.
+      const cardElement = document.querySelector('.card-animated');
+      // Get the container for the content that should appear after the card's animation.
+      const mainContentElement = document.getElementById('mainContent');
+
+      // Check if both elements exist to prevent errors.
+      if (cardElement && mainContentElement) {
+        // Add an event listener that waits for the 'animationend' event on the card.
+        // This event fires when the CSS animation applied to 'cardElement' completes.
+        cardElement.addEventListener('animationend', () => {
+          // Once the card's animation is finished:
+          // 1. Remove the 'content-hidden' class (which makes it invisible).
+          mainContentElement.classList.remove('content-hidden');
+          // 2. Add the 'content-visible' class (which makes it visible with a fade-in).
+          mainContentElement.classList.add('content-visible');
+        }, { once: true }); // { once: true } ensures the event listener is removed after it runs once.
+      }
+    });
+  </script>
+</body>
+</html>

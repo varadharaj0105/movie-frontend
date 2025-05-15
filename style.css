@@ -1,0 +1,271 @@
+/* Base reset and global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  height: 100%; /* Ensure body takes full height for vertical centering */
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #12082B; /* Deep dark purple */
+  color: #EAEAEA; /* Softer white for text */
+  display: flex;
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+  padding: 20px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Card container for forms and welcome message */
+.card {
+  background: linear-gradient(145deg, #1A103A, #2C124E); /* Darker gradient */
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  width: 100%;
+  max-width: 450px; /* Max width for the card */
+  text-align: center;
+}
+
+.card h2 {
+  color: #FCE57F; /* Soft yellow accent */
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.card p {
+  color: #C0C0C0; /* Lighter grey for paragraph text */
+  font-size: 1em;
+  margin-bottom: 25px;
+}
+
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between form elements */
+  margin-bottom: 25px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1em;
+  border-radius: 10px;
+  background: rgba(10, 5, 20, 0.7); /* Darker input background */
+  border: 1px solid rgba(95, 44, 130, 0.6); /* Purple border */
+  color: #EAEAEA;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+form input[type="text"]::placeholder,
+form input[type="email"]::placeholder,
+form input[type="password"]::placeholder {
+  color: #8A8A8A;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+  outline: none;
+  border-color: #E91E63; /* Pink border on focus */
+  background-color: rgba(10, 5, 20, 0.85);
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.3); /* Glow effect */
+}
+
+/* Button styles (general form submit button) */
+form button[type="submit"],
+.toggle-btn { /* Apply to buttons on index.html as well */
+  padding: 14px 25px;
+  background-image: linear-gradient(145deg, #E91E63, #C2185B); /* Pink gradient */
+  color: white;
+  font-size: 1.05em;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 5px 15px rgba(194, 24, 91, 0.3), 0 1px 3px rgba(0,0,0,0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%; /* Make buttons full width within the form/container */
+}
+
+form button[type="submit"]:hover,
+.toggle-btn:hover {
+  background-image: linear-gradient(145deg, #C2185B, #AD1457);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(194, 24, 91, 0.4), 0 2px 5px rgba(0,0,0,0.3);
+}
+
+form button[type="submit"]:active,
+.toggle-btn:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 3px 10px rgba(194, 24, 91, 0.3), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Specific for index.html button container */
+.button-container {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 15px; /* Space between buttons */
+  margin-top: 20px;
+}
+
+/* Links (e.g., "Don't have an account? Sign Up") */
+.link {
+  font-size: 0.9em;
+  color: #B0B0B0;
+  margin-top: 20px;
+}
+
+.link a {
+  color: #FCE57F; /* Soft yellow for links */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.link a:hover {
+  color: #FFCA28; /* Brighter yellow on hover */
+  text-decoration: underline;
+}
+
+/* Error and Loading Messages */
+#error-message {
+  color: #FF7B7B; /* Softer red for errors */
+  background-color: rgba(255, 123, 123, 0.1);
+  border: 1px solid rgba(255, 123, 123, 0.3);
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-size: 0.9em;
+  text-align: left; /* Align text to left for readability */
+}
+
+#loading-message {
+  color: #FCE57F;
+  margin-top: 15px;
+  font-size: 0.95em;
+}
+
+#loading-message::before { /* Simple text-based loading, or add spinner styles if preferred */
+  content: "⏳ "; /* Simple loading indicator */
+}
+
+
+/* Responsive Design Adjustments */
+@media (max-width: 600px) {
+  .card {
+    padding: 25px 30px;
+    margin: 20px; /* Add some margin on smaller screens */
+  }
+
+  .card h2 {
+    font-size: 1.8em;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"],
+  form button[type="submit"],
+  .toggle-btn {
+    font-size: 0.95em;
+    padding: 12px 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card {
+    padding: 20px;
+  }
+  .card h2 {
+    font-size: 1.6em;
+  }
+  .card p {
+    font-size: 0.9em;
+    margin-bottom: 20px;
+  }
+  form {
+    gap: 15px;
+  }
+}
+/* === Animation Additions for style.css === */
+
+/* Keyframes for the card: fades in and slides up from below. */
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0; /* Start fully transparent */
+    transform: translateY(40px); /* Start 40 pixels lower than its final position */
+  }
+  to {
+    opacity: 1; /* End fully opaque */
+    transform: translateY(0); /* End at its normal position */
+  }
+}
+
+/* Class to apply the 'fadeInSlideUp' animation to the card. */
+.card-animated {
+  animation: fadeInSlideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* 'forwards' keeps the end state */
+  opacity: 0; /* Start hidden, animation will make it visible */
+}
+
+/* Keyframes for a simple fade-in effect. */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Class to initially hide content that will be shown after an animation. */
+.content-hidden {
+  visibility: hidden; /* Completely hide, doesn't take up space if display:none were used */
+  opacity: 0;
+  /* Smooth transition for when it becomes visible.
+     The visibility transition has a delay to ensure opacity transition is smooth. */
+  transition: opacity 0.6s ease-in-out 0.2s, visibility 0s linear 0.8s; /* Delay opacity transition slightly */
+}
+
+/* Class to make the content visible. */
+.content-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Class for animating the welcome text. */
+/* It uses the 'fadeIn' animation, starting after a 0.5s delay. */
+.welcome-text-animated {
+  animation: fadeIn 0.7s ease-in forwards;
+  animation-delay: 0.3s; /* Start this animation slightly after the card starts appearing */
+  opacity: 0; /* Start hidden */
+}
+
+/* Class for animating the buttons container. */
+/* It uses 'fadeIn', starting after a 0.7s delay (after welcome text starts). */
+.buttons-animated {
+  animation: fadeIn 0.7s ease-in forwards;
+  animation-delay: 0.5s; /* Start this after the welcome text */
+  opacity: 0; /* Start hidden */
+}
+
+/* Ensure the body still centers content correctly with the animated card */
+/* You might already have similar styles, adjust as needed */
+body {
+  /* ... your existing body styles ... */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Use min-height to ensure full viewport coverage */
+  /* If you had 'height: 100%', min-height is often more robust */
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to MovieVerse</title>
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <div class="top-nav">
+    <a href="profile.html" class="profile-link">👤 Profile</a>
+  </div>
+
+  <div class="home-container">
+    <header>
+      <h1>🎬 Welcome to MovieVerse</h1>
+      <p>
+        Dive into a universe of reviews, ratings, and recommendations.<br>
+        Discover trending movies, share your thoughts, and connect with fellow movie buffs.
+      </p>
+    </header>
+
+    <nav style="text-align: center; margin-bottom: 30px;">
+      <a href="#" class="btn" onclick="loadWatchlist()">📺 My Watchlist</a>
+      <a href="#" class="btn" onclick="loadFavorites()">⭐ My Favorites</a>
+    </nav>
+
+    <!-- Search bar -->
+    <div class="search-container">
+      <input type="text" id="search-bar" placeholder="Search for movies..." oninput="searchMovies()" />
+    </div>
+
+    <!-- Trending Movies -->
+    <section id="movies-container" class="movies-container">
+      <h2>Trending Movies</h2>
+      <div id="movies-list" class="movies-list">
+        <p id="loading-message">Loading movies...</p>
+      </div>
+      <p id="no-results-message" style="display: none;">No movies found. Please try another search.</p>
+    </section>
+
+    <!-- Favorites Section -->
+    <section class="favorites-section" style="display: none;">
+      <h2>Your Favorites</h2>
+      <div class="movies-list" id="favorites-list"></div>
+    </section>
+
+    <!-- Watchlist Section -->
+    <section class="watchlist-section" style="display: none;">
+      <h2>Your Watchlist</h2>
+      <div class="movies-list" id="watchlist-list"></div>
+    </section>
+  </div>
+  <script src="homescript.js"></script>
+</body>
+</html>
