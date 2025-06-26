@@ -1,4 +1,4 @@
-# 🎬 Movie Frontend (Vanilla JS)
+# 🎬 Movie Frontend 
 
 This is the frontend of the Movie Web App built using **HTML, CSS, and Vanilla JavaScript**. It connects with the backend to show movie details, trailers, ratings, user reviews, cast, and streaming provider info.
 
