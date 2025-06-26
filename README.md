@@ -27,5 +27,4 @@ This is the frontend of the Movie Web App built using **HTML, CSS, and Vanilla J
 
 ---
 
-## 📁 Folder Structure
 
